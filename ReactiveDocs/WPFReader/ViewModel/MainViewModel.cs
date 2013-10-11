@@ -18,6 +18,15 @@ namespace ReactiveDocs.WPFReader.ViewModel
             CreateParkExampleDoc();
         }
 
+        //loldemo
+        public void FlipText()
+        {
+            DocumentVM.BoundValues["IsTaxPerVehicle"].Value = (int)DocumentVM.BoundValues["IsTaxPerVehicle"].Value == 0 ? 1 : 0;
+            DocumentVM.BoundValues["AdmissionAppliesToEveryone"].Value = (int)DocumentVM.BoundValues["AdmissionAppliesToEveryone"].Value == 0 ? 1 : 0;
+
+            DocumentVM.NotifyPropertyChanged("BoundValues");
+        }
+
         public void CreateParkExampleDoc()
         {
             var doc = new Document();
@@ -58,6 +67,7 @@ namespace ReactiveDocs.WPFReader.ViewModel
             doc.AddInt("NewAdmission", 0, false);
             doc.AddText(" for ");
             doc.AddSwitchingTexts("AdmissionAppliesToEveryone", 0, true, new string[] { "those who paid the charge", "everyone" });
+            doc.AddText(".");
             doc.Parts.Add(new ParagraphBreak());
 
             doc.AddText("This would lose/gain $");

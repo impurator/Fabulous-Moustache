@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ReactiveDocs.WPFReader.ViewModel;
 
 namespace ReactiveDocs.WPFReader
 {
@@ -23,6 +24,11 @@ namespace ReactiveDocs.WPFReader
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as MainViewModel).FlipText();
         }
     }
 }
