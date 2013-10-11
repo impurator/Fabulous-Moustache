@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDocs.Core.Model.DocumentPart
+namespace ReactiveDocs.Core.Model.Variable
 {
-    public class VariableBool : PartBase
+    public class VariableFloat : VariableBase
     {
         public override VariableType Type
         {
             get
             {
-                return VariableType.Boolean;
+                return VariableType.Float;
             }
         }
     }

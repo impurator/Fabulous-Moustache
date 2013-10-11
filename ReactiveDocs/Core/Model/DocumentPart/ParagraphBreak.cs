@@ -8,9 +8,5 @@ namespace ReactiveDocs.Core.Model.DocumentPart
 {
     public class ParagraphBreak : PartBase
     {
-        public override VariableType Type
-        {
-            get { return VariableType.ParagraphBreak; }
-        }
     }
 }

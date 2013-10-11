@@ -43,15 +43,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Document.cs" />
+    <Compile Include="Model\DocumentPart\VariableTextBox.cs" />
     <Compile Include="Model\DocumentPart\ParagraphBreak.cs" />
     <Compile Include="Model\DocumentPart\PartBase.cs" />
     <Compile Include="Model\DocumentPart\StaticText.cs" />
-    <Compile Include="Model\DocumentPart\VariableBool.cs" />
-    <Compile Include="Model\DocumentPart\VariableFloat.cs" />
-    <Compile Include="Model\DocumentPart\VariableInteger.cs" />
-    <Compile Include="Model\DocumentPart\VariableType.cs" />
+    <Compile Include="Model\Variable\VariableBool.cs" />
+    <Compile Include="Model\Variable\VariableFactory.cs" />
+    <Compile Include="Model\Variable\VariableFloat.cs" />
+    <Compile Include="Model\Variable\VariableInteger.cs" />
+    <Compile Include="Model\Variable\VariableType.cs" />
     <Compile Include="Model\DocumentRule\RuleBase.cs" />
     <Compile Include="Model\DocumentRule\SimpleAssignmentRule.cs" />
+    <Compile Include="Model\Variable\VariableBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,5 +1,6 @@
 ﻿using ReactiveDocs.Core.Model;
 using ReactiveDocs.Core.Model.DocumentPart;
+using ReactiveDocs.Core.Model.Variable;
 using ReactiveDocs.WPFReader.Helper;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,11 @@ namespace ReactiveDocs.WPFReader.ViewModel
             {
                 toAddTo.Blocks.Add(currentParagraph);
                 currentParagraph = new Paragraph();
+            }
+            else if (toAdd is VariableTextBox)
+            {
+                var variableTextBox = toAdd as VariableTextBox;
+                
             }
             else if (toAdd is VariableInteger)
             {

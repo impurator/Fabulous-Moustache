@@ -6,18 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using ReactiveDocs.Core.Model.DocumentPart;
 using ReactiveDocs.Core.Model.DocumentRule;
+using ReactiveDocs.Core.Model.Variable;
 
 namespace ReactiveDocs.Core.Model
 {
     public class Document
     {
-        public Dictionary<string, object> Variables { get; set; }
+        public Dictionary<string, VariableBase> Variables { get; set; }
         public List<PartBase> Parts { get; set; }
         public List<RuleBase> Rules { get; set; }
 
         public Document()
         {
-            Variables = new Dictionary<string, object>();
+            Variables = new Dictionary<string, VariableBase>();
             Parts = new List<PartBase>();
             Rules = new List<RuleBase>();
         }
@@ -37,22 +38,11 @@ namespace ReactiveDocs.Core.Model
             AddVariable(VariableType.Integer, name, value);
         }
 
-        // There's gotta be a less shitty way to handle numeric types.
-        // Like inferring the type or using double for everything, etc.
-        // No time to refactor!
         public void AddVariable(VariableType variableType, string name, object value)
         {
-            switch (variableType)
-            {
-                case VariableType.Integer:
-                    Parts.Add(new VariableInteger { BindingName = name });
-                    break;
-                case VariableType.Float:
-                    Parts.Add(new VariableFloat { BindingName = name });
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
+            Parts.Add(new VariableTextBox { BindingName = name, ForType = variableType });
+
+            var variableBase = VariableFactory.CreateVariable(variableType);
 
             Variables.Add(name, value);
         }

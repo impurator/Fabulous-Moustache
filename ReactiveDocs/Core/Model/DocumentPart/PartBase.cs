@@ -9,6 +9,5 @@ namespace ReactiveDocs.Core.Model.DocumentPart
     public abstract class PartBase
     {
         public string BindingName { get; set; }
-        public abstract VariableType Type { get; }
     }
 }
