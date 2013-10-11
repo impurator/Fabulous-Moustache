@@ -10,6 +10,6 @@ namespace ReactiveDocs.Core.Model.DocumentRule
     {
         public string BindingName { get; set; }
 
-        public abstract void Evaluate();
+        public abstract double Evaluate(Dictionary<string, object> boundValues);
     }
 }

@@ -18,46 +18,65 @@ namespace ReactiveDocs.WPFReader.ViewModel
             CreateParkExampleDoc();
         }
 
-        public void CreateTestDoc()
-        {
-            var doc = new Document();
-            doc.Parts.Add(new StaticText { Text = "Since the meaning of life is" });
-            doc.Parts.Add(new VariableInteger { Value = 42, BindingName = "MeaningOfLifeInt" });
-            doc.Parts.Add(new StaticText { Text = "this means that we can infer that the meaning of death is" });
-            doc.Parts.Add(new VariableInteger { Value = 24, BindingName = "MeaningOfDeathInt" });
-            doc.Parts.Add(new StaticText { Text = ".  However, I've often been told that you only can do what you know how to do well, and that's be you, be what you're like, be like yourself, you know.  So I'm having a wonderful time but I'd rather be whistling in the dark." });
-
-            DocumentVM = new DocumentVM(doc);
-        }
-
         public void CreateParkExampleDoc()
         {
             var doc = new Document();
-            doc.Parts.Add(new StaticText { Text = "Proposition 21:  Vehicle License Fee for State Parks" });
+
+            doc.AddText("Proposition 21:  Vehicle License Fee for State Parks");
             doc.Parts.Add(new ParagraphBreak());
 
-            doc.Parts.Add(new StaticText { Text = "The way it is now:" });
+            doc.AddText("The way it is now:");
             doc.Parts.Add(new ParagraphBreak());
             
-            doc.Parts.Add(new StaticText { Text = "California has" });
-            doc.Parts.Add(new VariableInteger { Value = 278, BindingName = "ParkCount" });
-            doc.Parts.Add(new StaticText { Text = "state parks, including state beaches and historic parks. The current" });
-            doc.Parts.Add(new VariableInteger { Value = 400000000, BindingName = "CurrentBudget" });
-            doc.Parts.Add(new StaticText { Text = "budget is insufficient to maintain these parks, and" });
-            doc.Parts.Add(new VariableInteger { Value = 150, BindingName = "CurrentClosingParks" });
-            doc.Parts.Add(new StaticText { Text = "parks will be shut down at least part-time.  Most parks charge" });
-            doc.Parts.Add(new VariableInteger { Value = 12, BindingName = "CurrentAdmission" });
-            doc.Parts.Add(new StaticText { Text = "per vehicle for admission." });
+            doc.AddText("California has" );
+            doc.AddInt("ParkCount", 278, true);
+            doc.AddText("state parks, including state beaches and historic parks. The current $");
+            doc.AddInt("CurrentBudget", 400000000, true);
+            doc.AddText("budget is insufficient to maintain these parks, and");
+            doc.AddInt("CurrentClosingParks", 150, true);
+            doc.AddText("parks will be shut down at least part-time.  Most parks charge $");
+            doc.AddInt("CurrentAdmission", 12, true);
+            doc.AddText("per vehicle for admission.");
             doc.Parts.Add(new ParagraphBreak());
             
-            doc.Parts.Add(new StaticText { Text = "What Prop 21 would do:" });
+            doc.AddText("What Prop 21 would do:");
             doc.Parts.Add(new ParagraphBreak());
 
-            doc.Parts.Add(new StaticText { Text = "Proposes to charge car owners an extra $18 on their annual registration bill, to go into the state park fund.  Cars that pay the charge would have free park admission." });
+            doc.AddText("Proposes to charge car owners an extra $18 on their annual registration bill, to go into the state park fund.  Cars that pay the charge would have free park admission.");
             doc.Parts.Add(new ParagraphBreak());
 
-            doc.Parts.Add(new StaticText { Text = "Analysis:" });
+            doc.AddText("Analysis:");
             doc.Parts.Add(new ParagraphBreak());
+
+            doc.AddText("Suppose that an extra $");
+            doc.AddInt("ATax", 18, false);
+            doc.AddText("was charged to");
+            doc.AddInt("PercentCompliance", 100, false);
+            doc.AddText("% of");
+            doc.AddSwitchingTexts("IsTaxPerVehicle", 1, true, new string[] { "California taxpayers", "vehicle registrations" });
+            doc.AddText(".  Park admission would be $");
+            doc.AddInt("NewAdmission", 0, false);
+            doc.AddText(" for ");
+            doc.AddSwitchingTexts("AdmissionAppliesToEveryone", 0, true, new string[] { "those who paid the charge", "everyone" });
+            doc.Parts.Add(new ParagraphBreak());
+
+            doc.AddText("This would lose/gain $");
+            //doc.AddSwitchingTexts("IsBudgetDeltaPositive", 0, true, new string[] { "lose $", "collect an extra $" });
+            doc.AddInt("BudgetDelta", 0, true);
+            doc.AddText(" ($ ");
+            doc.AddInt("NewTaxCollected", 0, true);
+            doc.AddText(" from the tax, plus/minus $");
+            doc.AddInt("AdmissionRevenue", 0, true);
+            doc.AddText("revenue from admission) for a total state park budget of $");
+            doc.AddInt("NewBudget", 0, true);
+            doc.AddText(".");
+
+            //doc.AddSimpleRule("IsBudgetDeltaPositive", "ATax * PercentCompliance / 100");
+
+            doc.AddSimpleRule("NewTaxCollected", "ATax * (PercentCompliance / 100) * 28000000");
+            doc.AddSimpleRule("AdmissionRevenue", "NewAdmission * 140000" );
+            doc.AddSimpleRule("BudgetDelta", "NewTaxCollected + AdmissionRevenue");
+            doc.AddSimpleRule("NewBudget", "CurrentBudget + BudgetDelta");
 
             DocumentVM = new DocumentVM(doc);
         }

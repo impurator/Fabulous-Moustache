@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Parser">
+      <HintPath>..\..\libs\MathParser\Parser.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,15 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Model\Document.cs" />
+    <Compile Include="Model\DocumentPart\SwitchingText.cs" />
+    <Compile Include="Model\DocumentPart\VariableTextBox.cs" />
     <Compile Include="Model\DocumentPart\ParagraphBreak.cs" />
     <Compile Include="Model\DocumentPart\PartBase.cs" />
     <Compile Include="Model\DocumentPart\StaticText.cs" />
-    <Compile Include="Model\DocumentPart\VariableFloat.cs" />
-    <Compile Include="Model\DocumentPart\VariableInteger.cs" />
+    <Compile Include="Model\DocumentRule\SimpleComparisonAssignmentRule.cs" />
+    <Compile Include="Model\Variable\VariableBool.cs" />
+    <Compile Include="Model\Variable\VariableFactory.cs" />
+    <Compile Include="Model\Variable\VariableFloat.cs" />
+    <Compile Include="Model\Variable\VariableInteger.cs" />
+    <Compile Include="Model\Variable\VariableType.cs" />
     <Compile Include="Model\DocumentRule\RuleBase.cs" />
     <Compile Include="Model\DocumentRule\SimpleAssignmentRule.cs" />
+    <Compile Include="Model\Variable\VariableBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
