@@ -10,6 +10,9 @@ namespace ReactiveDocs.Core.Model.DocumentPart
     {
         public string Text { get; set; }
 
-        
+        public override VariableType Type
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

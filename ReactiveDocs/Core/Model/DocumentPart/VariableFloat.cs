@@ -8,6 +8,12 @@ namespace ReactiveDocs.Core.Model.DocumentPart
 {
     public class VariableFloat : PartBase
     {
-        public double Value { get; set; }
+        public override VariableType Type
+        {
+            get
+            {
+                return VariableType.Float;
+            }
+        }
     }
 }

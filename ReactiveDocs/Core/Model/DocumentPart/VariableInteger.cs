@@ -8,6 +8,12 @@ namespace ReactiveDocs.Core.Model.DocumentPart
 {
     public class VariableInteger : PartBase
     {
-        public int Value { get; set; }
+        public override VariableType Type
+        {
+            get
+            {
+                return VariableType.Integer;
+            }
+        }
     }
 }

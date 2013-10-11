@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Xceed.Wpf.Toolkit.Primitives;
 
 namespace ReactiveDocs.WPFReader.Helper
 {
@@ -22,6 +23,13 @@ namespace ReactiveDocs.WPFReader.Helper
                 Brushes.Black);
 
             return new Size(formattedText.Width, formattedText.Height);
+        }
+
+        public static Size MeasureString(string candidate, InputBase textBox)
+        {
+            return MeasureString(candidate,
+                            new Typeface(textBox.FontFamily, textBox.FontStyle, textBox.FontWeight, textBox.FontStretch),
+                            textBox.FontSize);
         }
     }
 }

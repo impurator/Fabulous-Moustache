@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReactiveDocs.Core.Model.DocumentRule
+namespace ReactiveDocs.Core.Model.Variables
 {
-    public abstract class RuleBase
+    public class VariableBase
     {
         public string BindingName { get; set; }
-
-        public abstract double Evaluate(Dictionary<string, object> boundValues);
+        public abstract VariableType Type { get; }
     }
 }

@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace ReactiveDocs.Core.Model.DocumentPart
 {
-    public class ParagraphBreak : PartBase
+    public class VariableBool : PartBase
     {
         public override VariableType Type
         {
-            get { return VariableType.ParagraphBreak; }
+            get
+            {
+                return VariableType.Boolean;
+            }
         }
     }
 }

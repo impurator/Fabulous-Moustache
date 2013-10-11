@@ -1,5 +1,6 @@
 ﻿using ReactiveDocs.Core.Model;
 using ReactiveDocs.Core.Model.DocumentPart;
+using ReactiveDocs.WPFReader.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Media;
 using Xceed.Wpf.Toolkit;
 
 namespace ReactiveDocs.WPFReader.ViewModel
@@ -17,9 +19,17 @@ namespace ReactiveDocs.WPFReader.ViewModel
     {
         public FlowDocument Document { get; private set; }
 
-        public Dictionary<string, object> BoundValues { get; private set; }
+        public Dictionary<string, object> BoundValues
+        {
+            get
+            {
+                return reactiveDocument.Variables;
+            }
+        }
 
+        private Document reactiveDocument;
         private Paragraph currentParagraph = null;
+        private bool recalculating = false;
 
         public DocumentVM()
         {
@@ -28,9 +38,9 @@ namespace ReactiveDocs.WPFReader.ViewModel
 
         public DocumentVM(Document baseDoc)
         {
-            BoundValues = new Dictionary<string, object>();
+            reactiveDocument = baseDoc;
             Document = CreateFlowDocumentFromReactiveDoc(baseDoc);
-            Document.LineHeight = 20;
+            Document.LineHeight = 30;
             Document.ColumnWidth = 1024;
         }
 
@@ -71,23 +81,24 @@ namespace ReactiveDocs.WPFReader.ViewModel
                 if (string.IsNullOrEmpty(variableInteger.BindingName))
                     throw new Exception("Binding name cannot be null or empty for non-static document parts.");
 
-                if (BoundValues.ContainsKey(variableInteger.BindingName))
-                    throw new Exception("Duplicate binding name found: " + variableInteger.BindingName + ".");
+                if (!BoundValues.ContainsKey(variableInteger.BindingName))
+                    throw new Exception("Duplicate binding name not found: " + variableInteger.BindingName + ".");
 
                 var textBox = new IntegerUpDown();
-                textBox.Width = 60;
-                textBox.Height = 20;
+                var textSize = TextLayoutHelper.MeasureString(BoundValues[variableInteger.BindingName].ToString(), textBox);
+                textBox.Width = textSize.Width + 50;
+                textBox.Height = 24;
                 textBox.Margin = new Thickness(6, 0, 6, 0);
                 textBox.ValueChanged += textBox_ValueChanged;
                 textBox.Tag = variableInteger.BindingName;
 
                 //Dynamically generate the binding?  Yup, went there.
-                BoundValues.Add(variableInteger.BindingName, variableInteger.Value);
+                //reactiveDocument.BoundValues.Add(variableInteger.BindingName, variableInteger.Value);
                 var binding = new Binding("BoundValues[" + variableInteger.BindingName + "]");
                 binding.Source = this;
                 binding.Mode = BindingMode.TwoWay;
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                textBox.SetBinding(IntegerUpDown.TextProperty, binding);
+                textBox.SetBinding(IntegerUpDown.ValueProperty, binding);
 
                 currentParagraph.Inlines.Add(textBox);
             }
@@ -98,33 +109,42 @@ namespace ReactiveDocs.WPFReader.ViewModel
                 if (string.IsNullOrEmpty(variableFloat.BindingName))
                     throw new Exception("Binding name cannot be null or empty for non-static document parts.");
 
-                if (BoundValues.ContainsKey(variableFloat.BindingName))
-                    throw new Exception("Duplicate binding name found: " + variableFloat.BindingName + ".");
+                if (!BoundValues.ContainsKey(variableFloat.BindingName))
+                    throw new Exception("Duplicate binding name not found: " + variableFloat.BindingName + ".");
 
                 var textBox = new DoubleUpDown();
-                textBox.Width = 60;
-                textBox.Height = 20;
+                var textSize = TextLayoutHelper.MeasureString(BoundValues[variableFloat.BindingName].ToString(), textBox);
+                textBox.Width = textSize.Width + 50;
+                textBox.Height = 24;
                 textBox.Margin = new Thickness(6, 0, 6, 0);
                 textBox.ValueChanged += textBox_ValueChanged;
                 textBox.Tag = variableFloat.BindingName;
 
-                BoundValues.Add(variableFloat.BindingName, variableFloat.Value);
                 var binding = new Binding("BoundValues[" + variableFloat.BindingName + "]");
                 binding.Source = this;
                 binding.Mode = BindingMode.TwoWay;
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                textBox.SetBinding(IntegerUpDown.TextProperty, binding);
+                textBox.SetBinding(DoubleUpDown.ValueProperty, binding);
             }
         }
 
         void textBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            OnVariableChanged();
+            // Don't call VariableChanged on initialize or when already performing a recalc
+            if (!recalculating  && e.OldValue != null)
+            {
+                recalculating = true;
+
+                OnVariableChanged((sender as FrameworkElement).Tag.ToString());
+
+                recalculating = false;
+            }
         }
 
-        private void OnVariableChanged()
+        private void OnVariableChanged(string variableName)
         {
-            int i = 0;
+            reactiveDocument.RunRules(variableName);
+            NotifyPropertyChanged("BoundValues");
         }
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ReactiveDocs.Core.Model.DocumentPart
 {
-    public class PartBase
+    public abstract class PartBase
     {
         public string BindingName { get; set; }
+        public abstract VariableType Type { get; }
     }
 }
