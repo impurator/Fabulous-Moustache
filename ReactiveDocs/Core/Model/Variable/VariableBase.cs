@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReactiveDocs.Core.Model.Variable
 {
-    public class VariableBase
+    public abstract class VariableBase
     {
         public string VariableName { get; set; }
         public object Value { get; set; }

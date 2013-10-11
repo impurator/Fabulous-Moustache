@@ -29,13 +29,13 @@ namespace ReactiveDocs.WPFReader.ViewModel
             doc.Parts.Add(new ParagraphBreak());
             
             doc.AddText("California has" );
-            doc.AddInt("ParkCount", 278);
-            doc.AddText("state parks, including state beaches and historic parks. The current");
-            doc.AddInt("CurrentBudget", 400000000);
+            doc.AddInt("ParkCount", 278, true);
+            doc.AddText("state parks, including state beaches and historic parks. The current $");
+            doc.AddInt("CurrentBudget", 400000000, true);
             doc.AddText("budget is insufficient to maintain these parks, and");
-            doc.AddInt("CurrentClosingParks", 150);
-            doc.AddText("parks will be shut down at least part-time.  Most parks charge");
-            doc.AddInt("CurrentAdmission", 12);
+            doc.AddInt("CurrentClosingParks", 150, true);
+            doc.AddText("parks will be shut down at least part-time.  Most parks charge $");
+            doc.AddInt("CurrentAdmission", 12, true);
             doc.AddText("per vehicle for admission.");
             doc.Parts.Add(new ParagraphBreak());
             
@@ -48,11 +48,35 @@ namespace ReactiveDocs.WPFReader.ViewModel
             doc.AddText("Analysis:");
             doc.Parts.Add(new ParagraphBreak());
 
-            doc.AddText("Suppose that an extra");
-            doc.AddInt("Tax", 18);
+            doc.AddText("Suppose that an extra $");
+            doc.AddInt("ATax", 18, false);
+            doc.AddText("was charged to");
+            doc.AddInt("PercentCompliance", 100, false);
+            doc.AddText("% of");
+            doc.AddSwitchingTexts("IsTaxPerVehicle", 1, true, new string[] { "California taxpayers", "vehicle registrations" });
+            doc.AddText(".  Park admission would be $");
+            doc.AddInt("NewAdmission", 0, false);
+            doc.AddText(" for ");
+            doc.AddSwitchingTexts("AdmissionAppliesToEveryone", 0, true, new string[] { "those who paid the charge", "everyone" });
+            doc.Parts.Add(new ParagraphBreak());
 
-            doc.AddSimpleRule("Tax", "CurrentAdmission + 5");
-            doc.AddSimpleRule("CurrentClosingParks", "ParkCount - 100");
+            doc.AddText("This would lose/gain $");
+            //doc.AddSwitchingTexts("IsBudgetDeltaPositive", 0, true, new string[] { "lose $", "collect an extra $" });
+            doc.AddInt("BudgetDelta", 0, true);
+            doc.AddText(" ($ ");
+            doc.AddInt("NewTaxCollected", 0, true);
+            doc.AddText(" from the tax, plus/minus $");
+            doc.AddInt("AdmissionRevenue", 0, true);
+            doc.AddText("revenue from admission) for a total state park budget of $");
+            doc.AddInt("NewBudget", 0, true);
+            doc.AddText(".");
+
+            //doc.AddSimpleRule("IsBudgetDeltaPositive", "ATax * PercentCompliance / 100");
+
+            doc.AddSimpleRule("NewTaxCollected", "ATax * (PercentCompliance / 100) * 28000000");
+            doc.AddSimpleRule("AdmissionRevenue", "NewAdmission * 140000" );
+            doc.AddSimpleRule("BudgetDelta", "NewTaxCollected + AdmissionRevenue");
+            doc.AddSimpleRule("NewBudget", "CurrentBudget + BudgetDelta");
 
             DocumentVM = new DocumentVM(doc);
         }

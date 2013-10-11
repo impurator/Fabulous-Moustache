@@ -16,6 +16,14 @@ namespace ReactiveDocs.Core.Model
         public List<PartBase> Parts { get; set; }
         public List<RuleBase> Rules { get; set; }
 
+        public Dictionary<string, object> VariablePairs
+        {
+            get
+            {
+                return Variables.Select(x => new KeyValuePair<string, object>(x.Key, x.Value.Value)).ToDictionary(x => x.Key, y => y.Value);
+            }
+        }
+
         public Document()
         {
             Variables = new Dictionary<string, VariableBase>();
@@ -28,23 +36,42 @@ namespace ReactiveDocs.Core.Model
             Parts.Add(new StaticText { Text = text });
         }
 
-        public void AddFloat(string name, double value)
+        public void AddFloat(string name, double value, bool isReadOnly)
         {
-            AddVariable(VariableType.Float, name, value);
+            AddVariable(VariableType.Float, name, value, isReadOnly);
         }
 
-        public void AddInt(string name, int value)
+        public void AddInt(string name, int value, bool isReadOnly)
         {
-            AddVariable(VariableType.Integer, name, value);
+            AddVariable(VariableType.Integer, name, value, isReadOnly);
         }
 
-        public void AddVariable(VariableType variableType, string name, object value)
+        public void AddVariable(VariableType variableType, string name, object value, bool isReadOnly)
         {
-            Parts.Add(new VariableTextBox { BindingName = name, ForType = variableType });
+            Parts.Add(new VariableTextBox { BindingName = name, ForType = variableType, IsReadOnly = isReadOnly });
 
             var variableBase = VariableFactory.CreateVariable(variableType);
+            variableBase.Value = value;
+            
+            Variables.Add(name, variableBase);
+        }
 
-            Variables.Add(name, value);
+        //This sort of acts like an enum
+        public void AddSwitchingTexts(string bindingName, int defaultValue, bool isReadOnly, params string[] texts)
+        {
+            var newSwitchingText = new SwitchingText
+            {
+                BindingName = bindingName,
+                Texts = new List<string>(texts),
+                IsReadOnly = isReadOnly
+            };
+
+            Parts.Add(newSwitchingText);
+
+            var variableInt = VariableFactory.CreateVariable(VariableType.Integer);
+            variableInt.Value = defaultValue;
+
+            Variables.Add(bindingName, variableInt);
         }
 
         public void AddSimpleRule(string bindingName, string expressionString)
@@ -59,14 +86,14 @@ namespace ReactiveDocs.Core.Model
                 if (rule.BindingName == excludedVariable)
                     continue;
 
-                var boundValue = Variables[rule.BindingName];
-                if (boundValue is int)
+                var boundVariable = Variables[rule.BindingName];
+                if (boundVariable.Type == VariableType.Integer)
                 {
-                    Variables[rule.BindingName] = (int)Math.Round(rule.Evaluate(Variables));
+                    Variables[rule.BindingName].Value = (int)Math.Round(rule.Evaluate(VariablePairs));
                 }
-                else if (boundValue is double)
+                else if (boundVariable.Type == VariableType.Float)
                 {
-                    Variables[rule.BindingName] = rule.Evaluate(Variables);
+                    Variables[rule.BindingName].Value = rule.Evaluate(VariablePairs);
                 }
             }
         }

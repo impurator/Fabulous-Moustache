@@ -10,5 +10,6 @@ namespace ReactiveDocs.Core.Model.DocumentPart
     public class VariableTextBox : PartBase
     {
         public VariableType ForType { get; set; }
+        public bool IsReadOnly { get; set; }
     }
 }
