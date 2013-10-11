@@ -1,0 +1,89 @@
+# =========================
+# Reference:
+# https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+# =========================
+
+# =========================
+# Windows
+# =========================
+
+# Windows image caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac
+.DS_Store
+
+# =========================
+# Visual Studio
+# =========================
+
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vsscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.sbr
+*.sdf
+*.opensdf
+~*
+*.tmp
+*.vbw
+*.sln.docstates
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+
+# Build
+obj/
+ipch/
+[Dd]ebug*/
+[Rr]elease*/
+[Ee]nterprise*/
+[Bb]in/
+[Oo]bj/
+copyforinstall.cmd
+
+# Resharper
+_ReSharper*/
+
+# Test
+[Tt]est[Rr]esult*
+
+# NuGet
+/packages/
+!.nuget/NuGet.exe
+
+# NCrunch is a unit - testing tool
+*.ncrunchproject
+*.ncrunchsolution
+
+# =========================
+# Articulate Storyline
+# =========================
+
+# Install
+Install/Content*/
+Install/Fonts*/
+Install/Proof*/
+Install/Resources/
+Install/msvcr70.dll
