@@ -9,7 +9,5 @@ namespace ReactiveDocs.Core.Model.DocumentPart
     public class StaticText : PartBase
     {
         public string Text { get; set; }
-
-        
     }
 }

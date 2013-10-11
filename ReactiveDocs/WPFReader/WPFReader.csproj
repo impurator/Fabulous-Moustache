@@ -56,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper\SwitchingTextValueConverter.cs" />
+    <Compile Include="Helper\TextLayoutHelper.cs" />
     <Compile Include="ViewModel\DocumentVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />

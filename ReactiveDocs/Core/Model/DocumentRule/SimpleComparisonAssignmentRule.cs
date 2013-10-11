@@ -1,15 +1,17 @@
-﻿using MathParser;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MathParser;
 
 namespace ReactiveDocs.Core.Model.DocumentRule
 {
-    public class SimpleAssignmentRule : RuleBase
+    public class SimpleComparisonAssignmentRule : RuleBase
     {
         public string Expression { get; set; }
+
+        public int CompareAgainst { get; set; }
 
         public override double Evaluate(Dictionary<string, object> boundValues)
         {
@@ -26,8 +28,14 @@ namespace ReactiveDocs.Core.Model.DocumentRule
 
             var parser = new Parser();
             var parsingResult = parser.Parse(workingString);
-            
-            return parsingResult.Evaluate();
+            var result = parsingResult.Evaluate();
+
+            if (result >= CompareAgainst)
+                return 1.0;
+            else
+                return 0;
         }
+
+
     }
 }
