@@ -62,7 +62,7 @@ namespace ReactiveDocs.WPFReader.ViewModel
             doc.AddText("was charged to");
             doc.AddInt("PercentCompliance", 100, false);
             doc.AddText("% of");
-            doc.AddSwitchingTexts("IsTaxPerVehicle", 1, true, new string[] { "California taxpayers", "vehicle registrations" });
+            doc.AddSwitchingTexts("IsTaxPerVehicle", 1, false, new string[] { "California taxpayers", "vehicle registrations" });
             doc.AddText(".  Park admission would be $");
             doc.AddInt("NewAdmission", 0, false);
             doc.AddText(" for ");
@@ -71,7 +71,7 @@ namespace ReactiveDocs.WPFReader.ViewModel
             doc.Parts.Add(new ParagraphBreak());
 
             doc.AddText("This would lose/gain $");
-            //doc.AddSwitchingTexts("IsBudgetDeltaPositive", 0, true, new string[] { "lose $", "collect an extra $" });
+            doc.AddSwitchingTexts("IsBudgetDeltaPositive", 0, true, new string[] { "lose $", "collect an extra $" });
             doc.AddInt("BudgetDelta", 0, true);
             doc.AddText(" ($ ");
             doc.AddInt("NewTaxCollected", 0, true);

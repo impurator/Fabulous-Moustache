@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Parser">
-      <HintPath>..\..\libs\MathParser\Parser.dll</HintPath>
+    <Reference Include="NCalc">
+      <HintPath>..\..\libs\NCalc.1.3.8\NCalc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,7 +48,6 @@
     <Compile Include="Model\DocumentPart\ParagraphBreak.cs" />
     <Compile Include="Model\DocumentPart\PartBase.cs" />
     <Compile Include="Model\DocumentPart\StaticText.cs" />
-    <Compile Include="Model\DocumentRule\SimpleComparisonAssignmentRule.cs" />
     <Compile Include="Model\Variable\VariableBool.cs" />
     <Compile Include="Model\Variable\VariableFactory.cs" />
     <Compile Include="Model\Variable\VariableFloat.cs" />

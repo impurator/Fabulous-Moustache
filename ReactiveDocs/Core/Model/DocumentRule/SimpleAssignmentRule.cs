@@ -1,8 +1,9 @@
-﻿using MathParser;
+﻿using NCalc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ReactiveDocs.Core.Model.DocumentRule
@@ -17,17 +18,17 @@ namespace ReactiveDocs.Core.Model.DocumentRule
 
             // replace variables with their values.
             // inefficient but I'm hacking, yo
-            // Bug : this probably screws up if one bound name is a subset of another
-            // should capture the tokens with a greedy algo and then replace them.
             foreach (var boundValue in boundValues)
             {
-                workingString = workingString.Replace(boundValue.Key, boundValue.Value.ToString());
+                workingString = Regex.Replace(workingString, @"\b" + boundValue.Key + @"\b", boundValue.Value.ToString());
             }
 
-            var parser = new Parser();
-            var parsingResult = parser.Parse(workingString);
-            
-            return parsingResult.Evaluate();
+            var expression = new Expression(workingString);;
+
+            var ret = expression.Evaluate();
+            return Convert.ToDouble(ret);
         }
+
+
     }
 }
