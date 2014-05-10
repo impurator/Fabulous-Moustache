@@ -53,8 +53,8 @@
     <Compile Include="Model\Variable\VariableFloat.cs" />
     <Compile Include="Model\Variable\VariableInteger.cs" />
     <Compile Include="Model\Variable\VariableType.cs" />
-    <Compile Include="Model\DocumentRule\RuleBase.cs" />
-    <Compile Include="Model\DocumentRule\SimpleAssignmentRule.cs" />
+    <Compile Include="Model\DocumentExpression\ExpressionBase.cs" />
+    <Compile Include="Model\DocumentExpression\SimpleAssignmentRule.cs" />
     <Compile Include="Model\Variable\VariableBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

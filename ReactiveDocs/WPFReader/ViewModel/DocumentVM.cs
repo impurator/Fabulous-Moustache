@@ -44,7 +44,7 @@ namespace ReactiveDocs.WPFReader.ViewModel
             Document.LineHeight = 30;
             Document.ColumnWidth = 1024;
 
-            reactiveDocument.RunRules(string.Empty);
+            reactiveDocument.EvaluateExpressions(string.Empty);
             NotifyPropertyChanged("BoundValues");
         }
 
@@ -179,24 +179,28 @@ namespace ReactiveDocs.WPFReader.ViewModel
                 }
                 else
                 {
-                    var button = new Button();
-                    var textSize = TextLayoutHelper.MeasureString(variable.Value.ToString(), new Typeface(button.FontFamily, button.FontStyle, button.FontWeight, button.FontStretch), button.FontSize);
+                    var textBlock = new TextBlock();
+                    textBlock.Foreground = new SolidColorBrush(Colors.Blue);
+                    textBlock.TextDecorations = TextDecorations.Underline;
+                    textBlock.Height = 24;
+                    //textBlock.Margin = new Thickness(6, 0, 6, 0);
+                    textBlock.MouseDown += ButtonOnClick;
+                    textBlock.Tag = toAdd.BindingName;
 
-                    button.Width = textSize.Width + 20;
-                    button.Height = 24;
-                    button.Margin = new Thickness(6, 0, 6, 0);
-                    button.Click += ButtonOnClick;
-                    button.Tag = toAdd.BindingName;
-
-                    //textBox.SetBinding(IntegerUpDown.ValueProperty, binding);
-                    //currentParagraph.Inlines.Add(textBox);
+                    textBlock.SetBinding(TextBlock.TextProperty, binding);
+                    currentParagraph.Inlines.Add(textBlock);
                 }
             }
         }
 
         private void ButtonOnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-            throw new NotImplementedException();
+            var senderButton = (sender as TextBlock);
+            var variable = reactiveDocument.Variables[senderButton.Tag as string];
+            int intValue = (int)variable.Value;
+            variable.Value = intValue == 1 ? 0 : 1;
+
+            OnVariableChanged(senderButton.Tag as string);
         }
 
         void textBox_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -214,7 +218,7 @@ namespace ReactiveDocs.WPFReader.ViewModel
 
         private void OnVariableChanged(string variableName)
         {
-            reactiveDocument.RunRules(variableName);
+            reactiveDocument.EvaluateExpressions(variableName);
             NotifyPropertyChanged("BoundValues");
         }
     }

@@ -5,8 +5,9 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveDocs.Core.Model.DocumentPart;
-using ReactiveDocs.Core.Model.DocumentRule;
+using ReactiveDocs.Core.Model.DocumentExpression;
 using ReactiveDocs.Core.Model.Variable;
+using System.Text.RegularExpressions;
 
 namespace ReactiveDocs.Core.Model
 {
@@ -14,7 +15,7 @@ namespace ReactiveDocs.Core.Model
     {
         public Dictionary<string, VariableBase> Variables { get; set; }
         public List<PartBase> Parts { get; set; }
-        public List<RuleBase> Rules { get; set; }
+        public List<ExpressionBase> Expressions { get; set; }
 
         public Dictionary<string, object> VariablePairs
         {
@@ -28,7 +29,7 @@ namespace ReactiveDocs.Core.Model
         {
             Variables = new Dictionary<string, VariableBase>();
             Parts = new List<PartBase>();
-            Rules = new List<RuleBase>();
+            Expressions = new List<ExpressionBase>();
         }
 
         public void AddText(string text)
@@ -74,27 +75,20 @@ namespace ReactiveDocs.Core.Model
             Variables.Add(bindingName, variableInt);
         }
 
-        public void AddSimpleRule(string bindingName, string expressionString)
+        public void AddSimpleExpression(string bindingName, string expressionString)
         {
-            Rules.Add(new SimpleAssignmentRule { BindingName = bindingName, Expression = expressionString });
+            Expressions.Add(new SimpleExpression { BindingName = bindingName, Expression = expressionString });
         }
 
-        public void RunRules(string excludedVariable)
+        public void EvaluateExpressions(string excludedVariable)
         {
-            foreach (var rule in Rules)
+            foreach (var expression in Expressions)
             {
-                if (rule.BindingName == excludedVariable)
+                if (expression.BindingName == excludedVariable)
                     continue;
 
-                var boundVariable = Variables[rule.BindingName];
-                if (boundVariable.Type == VariableType.Integer)
-                {
-                    Variables[rule.BindingName].Value = (int)Math.Round(rule.Evaluate(VariablePairs));
-                }
-                else if (boundVariable.Type == VariableType.Float)
-                {
-                    Variables[rule.BindingName].Value = rule.Evaluate(VariablePairs);
-                }
+                var boundVariable = Variables[expression.BindingName];
+                Variables[expression.BindingName].Value = expression.Evaluate(VariablePairs);
             }
         }
 
