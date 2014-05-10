@@ -58,10 +58,10 @@ namespace ReactiveDocs.WPFReader.ViewModel
             doc.Parts.Add(new ParagraphBreak());
 
             doc.AddText("Suppose that an extra $");
-            doc.AddInt("ATax", 18, false);
+            doc.AddInt("Tax", 18, false);
             doc.AddText("was charged to");
             doc.AddInt("PercentCompliance", 100, false);
-            doc.AddText("% of");
+            doc.AddText("% of ");
             doc.AddSwitchingTexts("IsTaxPerVehicle", 1, false, new string[] { "California taxpayers", "vehicle registrations" });
             doc.AddText(".  Park admission would be $");
             doc.AddInt("NewAdmission", 0, false);
@@ -70,7 +70,7 @@ namespace ReactiveDocs.WPFReader.ViewModel
             doc.AddText(".");
             doc.Parts.Add(new ParagraphBreak());
 
-            doc.AddText("This would lose/gain $");
+            doc.AddText("This would ");
             doc.AddSwitchingTexts("IsBudgetDeltaPositive", 0, true, new string[] { "lose $", "collect an extra $" });
             doc.AddInt("BudgetDelta", 0, true);
             doc.AddText(" ($ ");
@@ -81,12 +81,11 @@ namespace ReactiveDocs.WPFReader.ViewModel
             doc.AddInt("NewBudget", 0, true);
             doc.AddText(".");
 
-            //doc.AddSimpleRule("IsBudgetDeltaPositive", "ATax * PercentCompliance / 100");
-
-            doc.AddSimpleRule("NewTaxCollected", "ATax * (PercentCompliance / 100) * 28000000");
-            doc.AddSimpleRule("AdmissionRevenue", "NewAdmission * 140000" );
-            doc.AddSimpleRule("BudgetDelta", "NewTaxCollected + AdmissionRevenue");
-            doc.AddSimpleRule("NewBudget", "CurrentBudget + BudgetDelta");
+            doc.AddSimpleExpression("NewTaxCollected", "Tax * (PercentCompliance / 100) * 28000000");
+            doc.AddSimpleExpression("AdmissionRevenue", "NewAdmission * 140000" );
+            doc.AddSimpleExpression("BudgetDelta", "NewTaxCollected + AdmissionRevenue");
+            doc.AddSimpleExpression("NewBudget", "CurrentBudget + BudgetDelta");
+            doc.AddSimpleExpression("IsBudgetDeltaPositive", "NewBudget > CurrentBudget ? 1 : 0");
 
             DocumentVM = new DocumentVM(doc);
         }

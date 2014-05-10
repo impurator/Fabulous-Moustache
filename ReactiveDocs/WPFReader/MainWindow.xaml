@@ -6,10 +6,8 @@
         DataContext="{StaticResource MainViewModel}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Width="60" Click="ButtonBase_OnClick">Flip Text</Button>
-        <FlowDocumentReader Grid.Row="1" Document="{Binding DocumentVM.Document}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <FlowDocumentReader Grid.Row="0" Document="{Binding DocumentVM.Document}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>
