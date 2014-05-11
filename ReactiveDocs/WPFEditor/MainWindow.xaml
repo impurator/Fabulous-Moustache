@@ -4,12 +4,16 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="MainWindow" Height="768" Width="1024"
         DataContext="{StaticResource MainViewModel}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Click="ButtonBase_OnClick">Clicks</Button>
-        <RichTextBox Grid.Row="1" Name="TextPane" />
-    </Grid>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Height="100" Orientation="Horizontal">
+            <ComboBox ItemsSource="{Binding Path=VariableManager.Variables, Mode=OneWay}" SelectedItem="{Binding SelectedVariable, Mode=TwoWay}" Width="200" Height="30"/>
+            <TextBox Text="{Binding Path=SelectedVariable.VariableName, Mode=OneWay}" Height="30" Width="100"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <Button DockPanel.Dock="Bottom" Width="60" Click="ButtonBase_OnClick">
+                <TextBlock TextAlignment="Center">Insert<LineBreak/>Variable</TextBlock>
+            </Button>
+        </StackPanel>
+        <RichTextBox Name="TextPane" FontFamily="SegoeUI" FontSize="14" IsDocumentEnabled="True"/>
+    </DockPanel>
 </Window>

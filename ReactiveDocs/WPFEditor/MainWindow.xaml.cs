@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFEditor.ViewModel;
+using WPFEditor.Helper;
 
 namespace WPFEditor
 {
@@ -21,16 +22,17 @@ namespace WPFEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainViewModel MainVM { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            MainVM = new MainViewModel(this.TextPane);
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            
-
-            (this.DataContext as MainViewModel).DoShit(TextPane.Selection);
+            MainVM.InsertVariable();
         }
     }
 }

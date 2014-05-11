@@ -4,6 +4,7 @@
     {
         Integer = 0,
         Float = 1,
-        Boolean = 2
+        Boolean = 2,
+        StringSet = 3
     }
 }

@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Helper\FlowDocumentHelper.cs" />
     <Compile Include="Helper\RichTextBoxHelper.cs" />
+    <Compile Include="Variable\VariableManager.cs" />
     <Compile Include="ViewModel\DocumentVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -100,7 +101,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{ed3baa6e-2cfc-4dff-8fd2-98757c040533}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

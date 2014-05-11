@@ -52,6 +52,7 @@
     <Compile Include="Model\Variable\VariableFactory.cs" />
     <Compile Include="Model\Variable\VariableFloat.cs" />
     <Compile Include="Model\Variable\VariableInteger.cs" />
+    <Compile Include="Model\Variable\VariableStringSet.cs" />
     <Compile Include="Model\Variable\VariableType.cs" />
     <Compile Include="Model\DocumentExpression\ExpressionBase.cs" />
     <Compile Include="Model\DocumentExpression\SimpleAssignmentRule.cs" />
