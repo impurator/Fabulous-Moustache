@@ -61,6 +61,12 @@
     <Compile Include="Variable\VariableManager.cs" />
     <Compile Include="ViewModel\DocumentVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\VariableDoubleViewModel.cs" />
+    <Compile Include="ViewModel\VariableIntViewModel.cs" />
+    <Compile Include="ViewModel\VariablePropertiesViewModel.cs" />
+    <Compile Include="ViewModel\VariableStringSetViewModel.cs" />
+    <Compile Include="ViewModel\VariableViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
