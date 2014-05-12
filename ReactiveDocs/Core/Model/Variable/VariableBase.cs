@@ -12,5 +12,15 @@ namespace ReactiveDocs.Core.Model.Variable
         public string VariableName { get; set; }
         public object Value { get; set; }
         public abstract VariableType Type { get; }
+
+        public override string ToString()
+        {
+            return VariableName;
+        }
+
+        public virtual object GetDefaultValue()
+        {
+            return "";
+        }
     }
 }
