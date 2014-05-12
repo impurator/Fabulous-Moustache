@@ -29,11 +29,18 @@ namespace WPFEditor
             InitializeComponent();
             MainVM = new MainViewModel(this.TextPane);
             this.DataContext = MainVM;
+            
+            TextPane.AppendText(@"When you eat 3 cookies, you consume 150 calories. That's 7 % of your recommended daily calories.");
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             MainVM.InsertVariable();
+        }
+
+        private void ExportButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainVM.Export();
         }
     }
 }

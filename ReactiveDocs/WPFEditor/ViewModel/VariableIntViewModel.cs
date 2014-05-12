@@ -3,58 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ReactiveDocs.Core.Model.Variable;
 
 namespace WPFEditor.ViewModel
 {
-    public class VariableIntViewModel : ViewModelBase
+    public class VariableIntViewModel : VariableBaseViewModel
     {
         public override string ToString()
         {
             return "Integer";
         }
 
-        private int minimumValue;
+        private VariableInteger variable
+        {
+            get { return Variable == null ? new VariableInteger() : Variable as VariableInteger; }
+        }
+
         public int MinimumValue
         {
-            get { return minimumValue; }
+            get { return variable.Minimum; }
             set
             {
-                minimumValue = value;
+                variable.Minimum = value;
                 OnPropertyChanged("MinimumValue");
             }
         }
 
-        private int maximumValue;
         public int MaximumValue
         {
-            get { return maximumValue; }
+            get { return variable.Maximum; }
             set
             {
-                maximumValue = value;
+                variable.Maximum = value;
                 OnPropertyChanged("MaximumValue");
             }
         }
 
-        private int defaultValue;
-        public int Defaultvalue
+        public int DefaultValue
         {
-            get { return defaultValue; }
+            get { return variable.Default; }
             set
             {
-                defaultValue = value;
-                OnPropertyChanged("Defaultvalue");
+                variable.Default = value;
+                OnPropertyChanged("DefaultValue");
             }
         }
 
-        private string formatString;
         public string FormatString
         {
-            get { return formatString; }
+            get { return variable.FormatString; }
             set
             {
-                formatString = value;
+                variable.FormatString = value;
                 OnPropertyChanged("FormatString");
             }
+        }
+
+        public override void RefreshUI()
+        {
+            OnPropertyChanged("MinimumValue");
+            OnPropertyChanged("MaximumValue");
+            OnPropertyChanged("DefaultValue");
+            OnPropertyChanged("FormatString");
         }
     }
 }

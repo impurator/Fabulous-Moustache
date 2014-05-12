@@ -18,6 +18,8 @@ namespace ReactiveDocs.Core.Model.Variable
                     return new VariableFloat();
                 case VariableType.Boolean:
                     return new VariableBool();
+                case VariableType.Basic:
+                    return new VariableBasic();
                 default:
                     throw new NotImplementedException();
             }

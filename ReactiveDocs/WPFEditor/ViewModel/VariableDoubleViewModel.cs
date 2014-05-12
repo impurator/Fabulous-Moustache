@@ -3,59 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ReactiveDocs.Core.Model.Variable;
 
 namespace WPFEditor.ViewModel
 {
-    public class VariableDoubleViewModel : ViewModelBase
+    public class VariableDoubleViewModel : VariableBaseViewModel
     {
         public override string ToString()
         {
             return "Decimal";
         }
 
-        private double minimumValue;
+        private VariableFloat variable
+        {
+            get { return Variable == null ? new VariableFloat() : Variable as VariableFloat; }
+        }
+
         public double MinimumValue
         {
-            get { return minimumValue; }
+            get { return variable.Minimum; }
             set
             {
-                minimumValue = value;
+                variable.Minimum = value;
                 OnPropertyChanged("MinimumValue");
             }
         }
 
-        private double maximumValue;
         public double MaximumValue
         {
-            get { return maximumValue; }
+            get { return variable.Maximum; }
             set
             {
-                maximumValue = value;
+                variable.Maximum = value;
                 OnPropertyChanged("MaximumValue");
             }
         }
 
-        private double defaultValue;
-        public double Defaultvalue
+        public double DefaultValue
         {
-            get { return defaultValue; }
+            get { return variable.Default; }
             set
             {
-                defaultValue = value;
-                OnPropertyChanged("Defaultvalue");
+                variable.Default = value;
+                OnPropertyChanged("DefaultValue");
             }
         }
 
-        private string formatString;
         public string FormatString
         {
-            get { return formatString; }
+            get { return variable.FormatString; }
             set
             {
-                formatString = value;
+                variable.FormatString = value;
                 OnPropertyChanged("FormatString");
             }
         }
-        
+
+        public override void RefreshUI()
+        {
+            OnPropertyChanged("MinimumValue");
+            OnPropertyChanged("MaximumValue");
+            OnPropertyChanged("DefaultValue");
+            OnPropertyChanged("FormatString");
+        }
     }
 }

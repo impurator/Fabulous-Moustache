@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WPFEditor.ViewModel
 {
-    public class VariableStringSetViewModel : ViewModelBase
+    public class VariableStringSetViewModel : VariableBaseViewModel
     {
         public override string ToString()
         {
@@ -19,17 +19,6 @@ namespace WPFEditor.ViewModel
         {
             get { return strings; }
             set { strings = value; }
-        }
-
-        private StringItem selectedString;
-        public StringItem SelectedString
-        {
-            get { return selectedString; }
-            set
-            {
-                selectedString = value;
-                OnPropertyChanged("SelectedString");
-            }
         }
         
     }

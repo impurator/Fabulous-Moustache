@@ -17,5 +17,10 @@ namespace ReactiveDocs.Core.Model.Variable
         {
             return VariableName;
         }
+
+        public virtual object GetDefaultValue()
+        {
+            return "";
+        }
     }
 }

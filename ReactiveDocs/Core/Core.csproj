@@ -42,12 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\EnumGetDescription.cs" />
     <Compile Include="Model\Document.cs" />
     <Compile Include="Model\DocumentPart\SwitchingText.cs" />
     <Compile Include="Model\DocumentPart\VariableTextBox.cs" />
     <Compile Include="Model\DocumentPart\ParagraphBreak.cs" />
     <Compile Include="Model\DocumentPart\PartBase.cs" />
     <Compile Include="Model\DocumentPart\StaticText.cs" />
+    <Compile Include="Model\Variable\VariableBasic.cs" />
     <Compile Include="Model\Variable\VariableBool.cs" />
     <Compile Include="Model\Variable\VariableFactory.cs" />
     <Compile Include="Model\Variable\VariableFloat.cs" />

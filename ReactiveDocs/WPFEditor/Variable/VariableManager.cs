@@ -6,19 +6,20 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFEditor.Helper;
 
 namespace WPFEditor.Variable
 {
     public class VariableManager 
     {
-        public ObservableCollection<VariableBase> Variables { get; set; }
+        public ObservableCollection<VariableInstance> Variables { get; set; }
 
         public VariableManager()
         {
-            Variables = new ObservableCollection<VariableBase>() { new VariableFloat{ Value = 2.0}, new VariableInteger{ Value = 45 } };
+            Variables = new ObservableCollection<VariableInstance>();
         }
 
-        public VariableBase RequestNewVariable(string forValue, string name = null)
+        public VariableInstance RequestNewVariable(string forValue, string name = null)
         {
             var ret = GetVariableFromString(forValue);
 
@@ -27,9 +28,11 @@ namespace WPFEditor.Variable
             else
                 ret.VariableName = GetVariableName(ret.Type);
 
-            Variables.Add(ret);
+            var instance = new VariableInstance() {Variable = ret};
 
-            return ret;
+            Variables.Add(instance);
+
+            return instance;
         }
 
         private VariableBase GetVariableFromString(string forValue)
@@ -41,11 +44,11 @@ namespace WPFEditor.Variable
 
             if (int.TryParse(value, out intVal))
             {
-                return new VariableInteger { Value = intVal };
+                return new VariableInteger(intVal);
             }
             else if (double.TryParse(value, out doubleVal))
             {
-                return new VariableFloat { Value = doubleVal };
+                return new VariableFloat (doubleVal);
             }
 
             return new VariableStringSet { Value = new List<string>() { forValue } };

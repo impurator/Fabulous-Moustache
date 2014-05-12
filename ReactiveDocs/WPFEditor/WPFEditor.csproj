@@ -56,11 +56,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Export\HtmlFromXamlConverter.cs" />
+    <Compile Include="Export\RtfToHtmlConverter.cs" />
     <Compile Include="Helper\FlowDocumentHelper.cs" />
     <Compile Include="Helper\RichTextBoxHelper.cs" />
+    <Compile Include="Helper\VariableInstance.cs" />
+    <Compile Include="Helper\VariableTypeToStringValueConverter.cs" />
     <Compile Include="Variable\VariableManager.cs" />
     <Compile Include="ViewModel\DocumentVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\VariableBaseViewModel.cs" />
+    <Compile Include="ViewModel\VariableBasicViewModel.cs" />
     <Compile Include="ViewModel\VariableDoubleViewModel.cs" />
     <Compile Include="ViewModel\VariableIntViewModel.cs" />
     <Compile Include="ViewModel\VariablePropertiesViewModel.cs" />
