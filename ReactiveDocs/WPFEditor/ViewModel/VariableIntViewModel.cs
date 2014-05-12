@@ -8,6 +8,11 @@ namespace WPFEditor.ViewModel
 {
     public class VariableIntViewModel : ViewModelBase
     {
+        public override string ToString()
+        {
+            return "Integer";
+        }
+
         private int minimumValue;
         public int MinimumValue
         {

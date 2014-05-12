@@ -28,6 +28,7 @@ namespace WPFEditor
         {
             InitializeComponent();
             MainVM = new MainViewModel(this.TextPane);
+            this.DataContext = MainVM;
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

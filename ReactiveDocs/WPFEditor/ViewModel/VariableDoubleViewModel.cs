@@ -8,6 +8,11 @@ namespace WPFEditor.ViewModel
 {
     public class VariableDoubleViewModel : ViewModelBase
     {
+        public override string ToString()
+        {
+            return "Decimal";
+        }
+
         private double minimumValue;
         public double MinimumValue
         {

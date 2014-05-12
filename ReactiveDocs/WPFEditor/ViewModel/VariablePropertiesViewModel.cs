@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace WPFEditor.ViewModel
 {
     public class VariablePropertiesViewModel : ViewModelBase
     {
-        public List<ViewModelBase> AvailableVariableTypes { get; set; }
+        public ObservableCollection<ViewModelBase> AvailableVariableTypes { get; set; }
 
         private ViewModelBase selectedVariableType;
         public ViewModelBase SelectedVariableType
@@ -34,9 +35,11 @@ namespace WPFEditor.ViewModel
 
         public VariablePropertiesViewModel()
         {
-            AvailableVariableTypes = new List<ViewModelBase>
+            AvailableVariableTypes = new ObservableCollection<ViewModelBase>
             {
-                
+                new VariableIntViewModel(),
+                new VariableDoubleViewModel(),
+                new VariableStringSetViewModel()
             };
         }
     }

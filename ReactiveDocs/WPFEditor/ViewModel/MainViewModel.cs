@@ -12,11 +12,12 @@ using WPFEditor.Helper;
 
 namespace WPFEditor.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
     {
         public RichTextBox MainText { get; set; }
         public VariableManager VariableManager { get; set; }
         public DocumentVM DocumentVm { get; set; }
+        public VariablePropertiesViewModel VariablePropertiesVM { get; set; }
 
         private VariableBase selectedVariable = null;
         public VariableBase SelectedVariable
@@ -30,7 +31,7 @@ namespace WPFEditor.ViewModel
                 if (value != selectedVariable)
                 {
                     selectedVariable = value;
-                    NotifyChanged("SelectedVariable");
+                    OnPropertyChanged("SelectedVariable");
                 }
             }
         }
@@ -39,6 +40,7 @@ namespace WPFEditor.ViewModel
         {
             DocumentVm = new DocumentVM();
             VariableManager = new VariableManager();
+            VariablePropertiesVM = new VariablePropertiesViewModel();
         }
 
         public MainViewModel(RichTextBox mainText) : this()
@@ -58,14 +60,6 @@ namespace WPFEditor.ViewModel
         void variableButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             SelectedVariable = (sender as Button).Tag as VariableBase;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -4,6 +4,5 @@
              xmlns:viewModel="clr-namespace:WPFEditor.ViewModel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <viewModel:MainViewModel x:Key="MainViewModel" />
     </Application.Resources>
 </Application>
