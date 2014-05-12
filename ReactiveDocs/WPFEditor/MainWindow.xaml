@@ -17,9 +17,15 @@
             <helper:VariableTypeToStringValueConverter x:Key="VcTypeToString"/>
 
             <DataTemplate DataType="{x:Type vm:VariableBasicViewModel}">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock>Expression:</TextBlock>
-                    <TextBox Text="{Binding EvaluationString}" Width="500"/>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock>Format String:</TextBlock>
+                        <TextBox Text="{Binding FormatString}" Width="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock>Expression:</TextBlock>
+                        <TextBox Text="{Binding EvaluationString}" Width="500"/>
+                    </StackPanel>
                 </StackPanel>
             </DataTemplate>
 

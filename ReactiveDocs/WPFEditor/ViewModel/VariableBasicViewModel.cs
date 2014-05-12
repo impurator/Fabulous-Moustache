@@ -24,9 +24,20 @@ namespace WPFEditor.ViewModel
             }
         }
 
+        public string FormatString
+        {
+            get { return variable.FormatString; }
+            set
+            {
+                variable.FormatString = value;
+                OnPropertyChanged("FormatString");
+            }
+        }
+
         public override void RefreshUI()
         {
             OnPropertyChanged("EvaluationString");
+            OnPropertyChanged("FormatString");
         }
     }
 }

@@ -146,7 +146,7 @@ namespace WPFEditor.ViewModel
 
             foreach (var variableInstance in VariableManager.Variables.Where(x => x.Variable is VariableBasic))
             {
-                ret.AppendLine("                    this." + variableInstance.Variable.VariableName + " = " + (variableInstance.Variable as VariableBasic).EvaluationString + ";");                
+                ret.AppendLine("                    this." + variableInstance.Variable.VariableName + " = " + (variableInstance.Variable as VariableBasic).DecodedEvaluationString + ";");                
             }
 
             ret.AppendLine("                }");
@@ -187,7 +187,7 @@ namespace WPFEditor.ViewModel
 
                 if (variable.Variable.Type == VariableType.Integer || variable.Variable.Type == VariableType.Float)
                 {
-                    replacement.Append("class=\"TKAdjustableNumber\"");
+                    replacement.Append("class=\"TKAdjustableNumber\" ");
 
                     if (variable.Variable.Type == VariableType.Integer)
                     {
@@ -204,6 +204,12 @@ namespace WPFEditor.ViewModel
                         replacement.Append("data-format=\"" + floatVar.FormatString + "\" ");
                     }
                 }
+                else if (variable.Variable.Type == VariableType.Basic)
+                {
+                    var basicVar = variable.Variable as VariableBasic;
+                    replacement.Append("data-format=\"" + basicVar.FormatString + "\" ");
+                }
+
                 replacement.Append("></span>");
                 ret = Regex.Replace(ret, "<SPAN>({{" + variable.Variable.VariableName + "}})</SPAN>",
                     replacement.ToString());
